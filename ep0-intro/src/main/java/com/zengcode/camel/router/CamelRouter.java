@@ -7,21 +7,38 @@ import org.springframework.stereotype.Component;
 public class CamelRouter extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        from("timer:direct-demo?period=2000")
+        from("timer:hello?period=3000")
                 .autoStartup(false)
-                .setBody().simple("Direct message at ${date:now:HH:mm:ss}")
-                .to("direct:logDirect");
+                .setBody(constant("Hello Camel!"))
+                .log("Received message: ${body}");
 
-        from("direct:logDirect")
-                .log("[DIRECT] - ${threadName}] >> ${body}");
+        from("timer:transform?period=3000")
+                .autoStartup(false)
+                .setBody(constant("Camel Rocks"))
+                .transform().simple("Transformed: ${body}")
+                .log(" ${body}");
 
-        from("timer:seda-demo?period=2000")
+        from("timer:gen?period=5000")
+                .autoStartup(false)
+                .setBody().simple("Generated ID: ${uuid}")
+                //.log("id ${body}");
+                .to("direct:demo");
+
+        from("direct:demo")
+                .process(exchange -> {
+                    String input = exchange.getMessage().getBody(String.class);
+                    exchange.getMessage().setBody("Processed: " + input);
+                })
+                .log(" ${body}");
+
+
+        from("timer:source?period=1000")
                 .autoStartup(true)
-                .setBody().simple("Seda message at ${date:now:HH:mm:ss}")
-                .to("seda:logSeda")
-                .log("[TIMER] Sent to seda: ${body}");
+                .setBody().simple("Message at ${date:now:HH:mm:ss}")
+                .to("seda:async-log")
+                .log(" Sent to seda: ${body}");
 
-        from("seda:logSeda?concurrentConsumers=3")
-                .log("[SEDA - ${threadName}] >> ${body}");
+        from("seda:async-log?concurrentConsumers=3")
+                .log(" [${threadName}] >> Processing: ${body}");
     }
 }

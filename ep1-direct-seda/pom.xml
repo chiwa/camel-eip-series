@@ -9,7 +9,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>ep0-direct-seda</artifactId>
+    <artifactId>ep1-direct-seda</artifactId>
     <name>EP1 - direct vs seda ใน Apache Camel ต่างกันยังไง ใช้งานแบบไหนถึงจะดี?</name>
 
     <dependencies>
