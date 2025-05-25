@@ -1,0 +1,5 @@
+com/zengcode/camel/Application.class
+com/zengcode/camel/router/CamelRouterExample1.class
+com/zengcode/camel/component/FirstBean.class
+com/zengcode/camel/router/CamelRouterExample2.class
+com/zengcode/camel/component/SecondBean.class
