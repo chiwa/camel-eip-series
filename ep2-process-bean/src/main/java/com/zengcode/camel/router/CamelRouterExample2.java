@@ -32,5 +32,22 @@ public class CamelRouterExample2 extends RouteBuilder {
                 .bean(firstBean, "enrichMessage")
                 .bean(secondBean, "inspect")
                 .log("✅ Flow complete: ${body}");
+
+        /** BONUS
+         *  from("timer:multi-bean2?period=5000")
+         *                 .autoStartup(true)
+         *                 .setBody().simple("Payload-${random(1000)}")
+         *                 .setHeader("x-id", simple("ID-${random(10000,99999)}"))
+         *                 .setProperty("source", constant("ep2-multi"))
+         *                 .to("direct:enrichBean");
+         *
+         *         from("direct:enrichBean")
+         *                 .setProperty("source", simple("Step 1"))
+         *                 .bean(firstBean, "enrichMessage")
+         *                 .setProperty("source", simple("Step 2"))
+         *                 .bean(secondBean, "inspect")
+         *                 .setProperty("source", simple("Step 3"))
+         *                 .log("✅ Flow complete: ${body} , ${exchangeProperty.source}");
+         */
     }
 }
