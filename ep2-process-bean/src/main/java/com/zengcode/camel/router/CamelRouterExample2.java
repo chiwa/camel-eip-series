@@ -21,16 +21,16 @@ public class CamelRouterExample2 extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("timer:multi-bean?period=5000")
-                .autoStartup(true)
+        from("timer:multi-bean2?period=5000")
+                .autoStartup(false)
                 .setBody().simple("Payload-${random(1000)}")
                 .setHeader("x-id", simple("ID-${random(10000,99999)}"))
                 .setProperty("source", constant("ep2-multi"))
-                .to("direct:enrich");
+                .to("direct:enrichBean");
 
-        from("direct:enrich")
-                .bean(FirstBean.class, "enrichMessage")
-                .bean(SecondBean.class, "inspect")
+        from("direct:enrichBean")
+                .bean(firstBean, "enrichMessage")
+                .bean(secondBean, "inspect")
                 .log("✅ Flow complete: ${body}");
     }
 }

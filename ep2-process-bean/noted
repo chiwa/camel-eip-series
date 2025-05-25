@@ -1,0 +1,6 @@
+ from("direct:enrichBean")
+                .bean(firstBean, "enrichMessage")
+                .setHeader("x-id", simple("${header.x-id}-override"))
+                .setProperty("source", constant("ep2-multi-override"))
+                .bean(secondBean, "inspect")
+                .log("✅ Flow complete: ${body}");

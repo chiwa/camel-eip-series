@@ -1,5 +1,10 @@
-com/zengcode/camel/Application.class
 com/zengcode/camel/router/CamelRouterExample1.class
+com/zengcode/camel/component/JsonProcessor.class
 com/zengcode/camel/component/FirstBean.class
+com/zengcode/camel/router/CamelRouterExample4.class
+com/zengcode/camel/component/JsonProcessorWithCustomerClass.class
+com/zengcode/camel/Application.class
+com/zengcode/camel/model/Customer.class
+com/zengcode/camel/router/CamelRouterExample3.class
 com/zengcode/camel/router/CamelRouterExample2.class
 com/zengcode/camel/component/SecondBean.class

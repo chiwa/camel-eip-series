@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FirstBean {
 
-    public void enrichMessage(
+    public String enrichMessage(
             @Body String body,
             @Header("x-id") String id,
             @ExchangeProperty("source") String source
@@ -16,5 +16,7 @@ public class FirstBean {
         System.out.println("🔥 [FirstBean] BODY: " + body);
         System.out.println("🔥 [FirstBean] HEADER x-id: " + id);
         System.out.println("🔥 [FirstBean] PROPERTY source: " + source);
+
+        return "Edited by FirstBean --> " + body;
     }
 }

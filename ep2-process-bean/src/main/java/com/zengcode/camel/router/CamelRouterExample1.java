@@ -8,8 +8,8 @@ public class CamelRouterExample1 extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("timer:multi-bean?period=5000")
-                .autoStartup(false)
+        from("timer:multi-bean1?period=5000")
+                .autoStartup(true)
                 .setBody().simple("Payload-${random(1000)}")
                 .setHeader("x-id", simple("ID-${random(10000,99999)}"))
                 .setProperty("source", constant("ep2-multi"))
