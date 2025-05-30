@@ -1,0 +1,7 @@
+camel:
+  component:
+    kafka:
+      brokers: localhost:9092
+      autoOffsetReset: earliest
+      autoCommitEnable: false  # ถ้า true คือ auto commit
+      groupId: ep4-group
